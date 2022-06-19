@@ -5,14 +5,16 @@ import 'blocs/index.dart';
 import 'package:flutter_maps/screens/index.dart';
 
 void main() {
-  runApp(MultiBlocProvider(
-    providers: [
-      BlocProvider(
-        create: (BuildContext context) => GpsBloc(),
-      )
-    ],
-    child: const MapsApp(),
-  ));
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => GpsBloc(),
+        )
+      ],
+      child: const MapsApp(),
+    ),
+  );
 }
 
 class MapsApp extends StatelessWidget {
@@ -22,7 +24,7 @@ class MapsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: GpsAccessScreen(),
+      home: LoadingScreen(),
       title: 'Maps App',
     );
   }

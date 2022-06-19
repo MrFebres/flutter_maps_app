@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_maps/blocs/index.dart';
@@ -9,16 +7,15 @@ class GpsAccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BlocBuilder<GpsBloc, GpsState>(
-      builder: (_, state) {
-        return !state.isGpsEnabled
-            ? const _EnableGpsMessage()
-            : const _AccessButton();
-      },
-    )
-        // _AccessButton(),
-        // body: _EnableGpsMessage(),
-        );
+    return Scaffold(
+      body: BlocBuilder<GpsBloc, GpsState>(
+        builder: (_, state) {
+          return !state.isGpsEnabled
+              ? const _EnableGpsMessage()
+              : const _AccessButton();
+        },
+      ),
+    );
   }
 }
 
@@ -35,7 +32,8 @@ class _AccessButton extends StatelessWidget {
           MaterialButton(
             color: Colors.black,
             elevation: 0,
-            onPressed: () {},
+            onPressed:
+                BlocProvider.of<GpsBloc>(context, listen: false).askGpsAccess,
             shape: const StadiumBorder(),
             splashColor: Colors.transparent,
             child: const Text(

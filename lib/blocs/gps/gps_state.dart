@@ -9,6 +9,8 @@ class GpsState extends Equatable {
   final bool isGpsEnabled;
   final bool isGpsPermissionGranted;
 
+  bool get isAllGranted => isGpsEnabled && isGpsPermissionGranted;
+
   @override
   List<Object> get props => [isGpsEnabled, isGpsPermissionGranted];
 
