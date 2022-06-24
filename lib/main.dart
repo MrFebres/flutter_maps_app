@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/blocs.dart';
-import 'package:flutter_maps/screens/index.dart';
+import 'package:flutter_maps/screens/screens.dart';
 
 void main() {
   runApp(
