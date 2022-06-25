@@ -12,3 +12,7 @@ class NewUserLocationEvent extends LocationEvent {
 
   final LatLng newLocation;
 }
+
+class StartFollowingUser extends LocationEvent {}
+
+class StopFollowingUser extends LocationEvent {}

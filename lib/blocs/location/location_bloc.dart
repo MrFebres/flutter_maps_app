@@ -12,11 +12,24 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   StreamSubscription<Position>? positionStream;
 
   LocationBloc() : super(const LocationState()) {
-    on<NewUserLocationEvent>((event, emit) {
-      emit(state.copyWith(
-          lastKnownLocation: event.newLocation,
-          myLocationHistory: [...state.myLocationHistory, event.newLocation]));
-    });
+    on<NewUserLocationEvent>(
+      (event, emit) => emit(state.copyWith(
+        lastKnownLocation: event.newLocation,
+        myLocationHistory: [...state.myLocationHistory, event.newLocation],
+      )),
+    );
+
+    on<StartFollowingUser>(
+      (_, emit) => emit(
+        state.copyWith(followingUser: true),
+      ),
+    );
+
+    on<StopFollowingUser>(
+      (_, emit) => emit(
+        state.copyWith(followingUser: false),
+      ),
+    );
   }
 
   Future getCurrentPosition() async {
@@ -30,7 +43,11 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   }
 
   void startFollowingUser() {
+    add(StartFollowingUser());
+
     positionStream = Geolocator.getPositionStream().listen((event) {
+      print('${event.latitude}-${event.longitude}');
+
       add(
         NewUserLocationEvent(
           newLocation: LatLng(event.latitude, event.longitude),
@@ -39,7 +56,10 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     });
   }
 
-  void stopFollowingUser() => positionStream?.cancel();
+  void stopFollowingUser() {
+    positionStream?.cancel();
+    add(StopFollowingUser());
+  }
 
   @override
   Future<void> close() {
