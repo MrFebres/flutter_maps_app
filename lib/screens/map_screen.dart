@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_maps/blocs/blocs.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:flutter_maps/widgets/widgets.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
@@ -38,13 +39,14 @@ class _MapScreenState extends State<MapScreen> {
             );
           }
 
-          final initialCameraPosition = CameraPosition(
-            target: state.lastKnownLocation!,
-            zoom: 15,
-          );
+          return SingleChildScrollView(
+            child: Stack(
+              children: [
+                MapView(initialLocation: state.lastKnownLocation!),
 
-          return GoogleMap(
-            initialCameraPosition: initialCameraPosition,
+                // TODO: Botones...
+              ],
+            ),
           );
         },
       ),
