@@ -6,3 +6,9 @@ abstract class MapEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class InitializedMap extends MapEvent {
+  const InitializedMap(this.controller);
+
+  final GoogleMapController controller;
+}
