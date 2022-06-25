@@ -12,3 +12,7 @@ class InitializedMap extends MapEvent {
 
   final GoogleMapController controller;
 }
+
+class StartFollowingUserInMap extends MapEvent {}
+
+class StopFollowingUserInMap extends MapEvent {}
