@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_maps/blocs/blocs.dart';
 import 'package:flutter_maps/widgets/custom_snackbar.dart';
 
@@ -13,26 +14,24 @@ class BtnLocation extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
-      child: CircleAvatar(
+      child: FloatingActionButton(
         backgroundColor: Colors.white,
-        maxRadius: 25,
-        child: IconButton(
-          onPressed: () {
-            final userLocation = locationBloc.state.lastKnownLocation;
+        elevation: 0,
+        onPressed: () {
+          final userLocation = locationBloc.state.lastKnownLocation;
 
-            if (userLocation == null) {
-              final snackBar = CustomSnackBar(message: 'No hay ubicación');
-              ScaffoldMessenger.maybeOf(context)?.showSnackBar(snackBar);
+          if (userLocation == null) {
+            final snackBar = CustomSnackBar(message: 'No hay ubicación');
+            ScaffoldMessenger.maybeOf(context)?.showSnackBar(snackBar);
 
-              return;
-            }
+            return;
+          }
 
-            mapBloc.moveCamera(userLocation);
-          },
-          icon: const Icon(
-            Icons.my_location_outlined,
-            color: Colors.black,
-          ),
+          mapBloc.moveCamera(userLocation);
+        },
+        child: const Icon(
+          Icons.my_location_outlined,
+          color: Colors.black,
         ),
       ),
     );

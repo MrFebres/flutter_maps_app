@@ -12,19 +12,17 @@ class BtnFollow extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
-      child: CircleAvatar(
+      child: FloatingActionButton(
         backgroundColor: Colors.white,
-        maxRadius: 25,
+        elevation: 0,
+        onPressed: () => mapBloc.add(StartFollowingUserInMap()),
         child: BlocBuilder<MapBloc, MapState>(
-          builder: (_, state) {
-            return IconButton(
-              onPressed: () => mapBloc.add(StartFollowingUserInMap()),
-              icon: Icon(
-                state.isFollowingUser
-                    ? Icons.directions_run_rounded
-                    : Icons.hail_rounded,
-                color: Colors.black,
-              ),
+          builder: (context, state) {
+            return Icon(
+              state.isFollowingUser
+                  ? Icons.directions_run_rounded
+                  : Icons.hail_rounded,
+              color: Colors.black,
             );
           },
         ),

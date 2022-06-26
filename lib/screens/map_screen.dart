@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_maps/blocs/blocs.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'package:flutter_maps/blocs/blocs.dart';
 import 'package:flutter_maps/widgets/widgets.dart';
 
 class MapScreen extends StatefulWidget {
@@ -32,27 +33,41 @@ class _MapScreenState extends State<MapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<LocationBloc, LocationState>(
-        builder: (_, state) {
-          if (state.lastKnownLocation == null) {
+        builder: (_, locationState) {
+          if (locationState.lastKnownLocation == null) {
             return const Center(
               child: Text('Espere por favor'),
             );
           }
 
-          return SingleChildScrollView(
-            child: Stack(
-              children: [
-                MapView(initialLocation: state.lastKnownLocation!),
+          return BlocBuilder<MapBloc, MapState>(
+            builder: (_, mapState) {
+              Map<String, Polyline> polylines = Map.from(mapState.polylines);
 
-                // TODO: Botones...
-              ],
-            ),
+              if (!mapState.showMyRoute) {
+                polylines.removeWhere((key, _) => key == 'myRoute');
+              }
+
+              return SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    MapView(
+                      initialLocation: locationState.lastKnownLocation!,
+                      polylines: polylines.values.toSet(),
+                    ),
+
+                    // TODO: Botones...
+                  ],
+                ),
+              );
+            },
           );
         },
       ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: const [
+          BtnToggleRoute(),
           BtnFollow(),
           BtnLocation(),
         ],
