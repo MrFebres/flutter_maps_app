@@ -15,6 +15,7 @@ void main() {
             locationBloc: BlocProvider.of<LocationBloc>(context),
           ),
         ),
+        BlocProvider(create: (_) => SearchBloc()),
       ],
       child: const MapsApp(),
     ),
