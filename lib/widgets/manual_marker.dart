@@ -1,8 +1,25 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:animate_do/animate_do.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:flutter_maps/blocs/blocs.dart';
 
 class ManualMarker extends StatelessWidget {
   const ManualMarker({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (_, state) => state.displayManualMarker
+          ? const _ManualMarkerBody()
+          : const SizedBox(),
+    );
+  }
+}
+
+class _ManualMarkerBody extends StatelessWidget {
+  const _ManualMarkerBody({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -13,7 +30,7 @@ class ManualMarker extends StatelessWidget {
       child: Stack(
         children: [
           const Positioned(
-            top: 70,
+            top: 50,
             left: 20,
             child: _BackBtn(),
           ),
@@ -24,7 +41,7 @@ class ManualMarker extends StatelessWidget {
                 from: 50,
                 child: const Icon(
                   Icons.location_on_rounded,
-                  size: 60,
+                  size: 50,
                 ),
               ),
             ),
@@ -57,9 +74,7 @@ class ManualMarker extends StatelessWidget {
 }
 
 class _BackBtn extends StatelessWidget {
-  const _BackBtn({
-    Key? key,
-  }) : super(key: key);
+  const _BackBtn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +84,8 @@ class _BackBtn extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 1,
         heroTag: '_BackBtn',
-        onPressed: () {},
+        onPressed: () =>
+            BlocProvider.of<SearchBloc>(context).add(DeActivateManualMarker()),
         child: const Icon(
           Icons.arrow_back_ios_new_rounded,
           color: Colors.black,

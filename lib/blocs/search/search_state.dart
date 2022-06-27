@@ -7,7 +7,10 @@ class SearchState extends Equatable {
 
   final bool displayManualMarker;
 
-  SearchState copyWith(bool? displayManualMarker) => SearchState(
+  SearchState copyWith({
+    bool? displayManualMarker,
+  }) =>
+      SearchState(
         displayManualMarker: displayManualMarker ?? this.displayManualMarker,
       );
 
