@@ -15,6 +15,7 @@ class BtnFollow extends StatelessWidget {
       child: FloatingActionButton(
         backgroundColor: Colors.white,
         elevation: 0,
+        heroTag: 'BtnFollow',
         onPressed: () => mapBloc.add(StartFollowingUserInMap()),
         child: BlocBuilder<MapBloc, MapState>(
           builder: (context, state) {

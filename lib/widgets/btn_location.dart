@@ -17,6 +17,7 @@ class BtnLocation extends StatelessWidget {
       child: FloatingActionButton(
         backgroundColor: Colors.white,
         elevation: 0,
+        heroTag: 'BtnLocation',
         onPressed: () {
           final userLocation = locationBloc.state.lastKnownLocation;
 

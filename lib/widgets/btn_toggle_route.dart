@@ -15,6 +15,7 @@ class BtnToggleRoute extends StatelessWidget {
       child: FloatingActionButton(
         backgroundColor: Colors.white,
         elevation: 0,
+        heroTag: 'BtnToggleRoute',
         onPressed: () => mapBloc.add(ToggleShowRoute()),
         child: const Icon(
           Icons.more_horiz_rounded,

@@ -9,14 +9,18 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () {
-            showSearch(
+          onPressed: () async {
+            final result = await showSearch(
               context: context,
               delegate: DestinationDelegate(),
             );
+
+            if (result == null) return;
+
+            print(result);
           },
           style: ButtonStyle(
             alignment: Alignment.center,
